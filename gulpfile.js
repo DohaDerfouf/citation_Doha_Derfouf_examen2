@@ -1,4 +1,6 @@
 const gulp = require('gulp');
+const replace = require('gulp-replace');
+
 const minifyCSS = require('gulp-clean-css');
 const minifyJS = require('gulp-uglify');
 const replace = require('gulp-replace');
