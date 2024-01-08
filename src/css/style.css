@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.container {
+  background-color: #333333;
+}
+
+.img {
+  border-color: #EEEEEE;
+}
+
+.text {
+  color: #EEEEEE;
+}
+
+.heading {
+  color: #333333;
+}/*# sourceMappingURL=style.css.map */
