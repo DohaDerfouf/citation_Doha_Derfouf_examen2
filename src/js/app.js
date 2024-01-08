@@ -4,7 +4,7 @@ $(document).ready(async () => {
     console.log("ready");
 
     const url = 'https://script.googleusercontent.com/macros/echo?user_content_key=bO7sqj5RuAEEQBmj8SHbUoj6oCwuXkcHu5Gn0Uypo9EF0C6rMtFwZINjWawshVz79JBUcxZ7wcKWHuOfPtF7SiaOkNTDnepNm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnL2aCzGGbYWew4wpPOdnfhxg8uQ0gCM8I85FsfC4jFMx-KyBVxX2Exn5d8GLoGotr0IxwkG2qpi7b4OgDD4BpripBpXShFAtwg&lib=MX2LE1D8o4yhou4Tu3dQyOCANBs6THuFY';
-
+console.log('ready')
     try {
         const response = await fetch(url);
         const responseData = await response.json();
