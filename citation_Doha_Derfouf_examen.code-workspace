@@ -9,14 +9,16 @@
 		
 		// {
 		// 	"format": "compressed",
-		// 	"extensionName": ".min.css",
-		// 	"savePath": "~/../css/"
+		// 		"extensionName": ".min.css",
+		// 		"savePath": "~/../src/css/"
 		// },
 		{
 		
-			"format": "expanded",
-			"extensionName": ".css",
-			"savePath": "~/../css/"
+			"format": "compressed",
+				"extensionName": ".css",
+				"savePath": "~/../src/css/"
 		}
-		]}
+		],
+		"liveServer.settings.port": 5501
+	}
 }

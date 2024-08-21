@@ -1,33 +1,29 @@
 const gulp = require('gulp');
-const replace = require('gulp-replace');
+const sass = require('gulp-sass')(require('sass'));
+const postcss = require('gulp-postcss');
+const tailwindcss = require('tailwindcss');
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
+const terser = require('gulp-terser');
+const rename = require('gulp-rename');
 
-const minifyCSS = require('gulp-clean-css');
-const minifyJS = require('gulp-uglify');
-const replace = require('gulp-replace');
-// Tâche pour minifier les fichiers CSS et les placer dans /dist
 gulp.task('minify-css', () => {
-  return gulp.src('src/css/*.css')
-    .pipe(minifyCSS())
+  return gulp.src('src/scss/style.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(postcss([
+      tailwindcss('./tailwind.config.js'),
+      autoprefixer(),
+      cssnano()
+    ]))
+    .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('dist/css'));
 });
 
-// Tâche pour minifier les fichiers JS et les placer dans /dist
 gulp.task('minify-js', () => {
-  return gulp.src('src/js/*.js')
-    .pipe(minifyJS())
+  return gulp.src(['src/js/**/*.js', '!src/js/**/*.min.js'])
+    .pipe(terser())
+    .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('dist/js'));
 });
 
-// Tâche pour remplacer les liens vers les fichiers minifiés dans les fichiers HTML
-gulp.task('replace-html', () => {
-  return gulp.src('src/*.html')
-    .pipe(replace('.css', '.min.css'))
-    .pipe(replace('.js', '.min.js'))
-    .pipe(gulp.dest('dist'));
-});
-
-// Tâche pour exécuter toutes les tâches de minification et de remplacement
-gulp.task('minify-all', gulp.series('minify-css', 'minify-js', 'replace-html'));
-
-// Tâche par défaut - exécute toutes les tâches de minification et de remplacement
-gulp.task('default', gulp.series('minify-all'));
+gulp.task('default', gulp.parallel('minify-css', 'minify-js'));
