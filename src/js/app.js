@@ -10,7 +10,16 @@ $(document).ready(async () => {
         const responseData = await response.json();
         
         data = responseData;
-
+   $('#bouton').click(() => {
+                $('#place').html(`
+                    <div class=" flex flex-col text-center w-[15%]">
+                        <img src="https://i.giphy.com/3o7bu3XilJ5BOiSGic.webp" alt="Loading...">
+                    </div>
+                `);
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
+            });
         if (data && data.length > 0) {
             const randomIndex = Math.floor(Math.random() * data.length);
             const randomObject = data[randomIndex];
@@ -35,16 +44,7 @@ $(document).ready(async () => {
             );
 
             
-            $('#bouton').click(() => {
-                $('#place').html(`
-                    <div class=" flex flex-col text-center w-[15%]">
-                        <img src="https://i.giphy.com/3o7bu3XilJ5BOiSGic.webp" alt="Loading...">
-                    </div>
-                `);
-        setTimeout(() => {
-            location.reload();
-        }, 2000);
-            });
+         
 
         } else {
             console.error('La réponse du fichier JSON ne contient pas d\'objets.');
