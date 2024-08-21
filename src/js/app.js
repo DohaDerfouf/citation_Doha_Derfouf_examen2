@@ -21,8 +21,8 @@ $(document).ready(async () => {
             console.log('Date :', randomObject.date);
 
             $('#contenu').html(
-                `<div class="flex flex-col items-center">
-                <div class="mb-8">"</div>
+                `<div class="flex flex-col items-center" id="place">
+                <div class="mb-8 text-xl">"</div>
                 <h4 class="text-xl text-center font-bold m-8 leading-tight">${randomObject.citation}</h4>
                 <div class="flex items-center">
                     <img src="${randomObject.date}" alt="${randomObject.auteur}" class="w-14 h-14 object-cover rounded-full mr-4">
@@ -36,7 +36,14 @@ $(document).ready(async () => {
 
             
             $('#bouton').click(() => {
-                location.reload();
+                $('#place').html(`
+                    <div class=" flex flex-col text-center w-[15%]">
+                        <img src="https://i.giphy.com/3o7bu3XilJ5BOiSGic.webp" alt="Loading...">
+                    </div>
+                `);
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
             });
 
         } else {
