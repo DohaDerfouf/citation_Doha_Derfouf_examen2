@@ -93,7 +93,7 @@ $(document).ready(async () => {
             $('#contenu').html(
                 `<div class="flex flex-col items-center" id="place">
                 <div class="mb-8 text-xl">"</div>
-                <h4 class="text-xl text-center font-bold m-8 leading-tight">${randomObject.citation}</h4>
+                <h4 class="text-xl text-center font-bold m-8 leading-tight text-white">${randomObject.citation}</h4>
                 <div class="flex items-center">
                     <img src="${randomObject.date}" alt="${randomObject.auteur}" class="w-14 h-14 object-cover rounded-full mr-4">
                     <div class="text-left">
