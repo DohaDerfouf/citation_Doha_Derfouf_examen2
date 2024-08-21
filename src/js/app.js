@@ -1,3 +1,64 @@
+// const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+// if (isIOS) {
+//   // Affiche un message indiquant à l'utilisateur comment ajouter la PWA à l'écran d'accueil
+//   const iosMessage = document.createElement('div');
+//   iosMessage.innerHTML = '<p>Pour installer cette application sur votre écran d\'accueil, appuyez sur l\'icône de partage, puis sélectionnez "Ajouter à l\'écran d\'accueil".</p>';
+//   document.body.appendChild(iosMessage);
+// }
+
+
+
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('./services-worker.js').then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  
+  
+  
+  }// Vérifie si la PWA peut être installée et affiche le bouton d'installation si nécessaire
+  window.addEventListener('load', () => {
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      document.querySelector('#install').style.display = 'none';
+    } else {
+      // Hide the installation button if the PWA is not installable
+      document.querySelector('#install').style.display = 'none';
+    }
+  });
+  let deferredPrompt; // Déclaration d'une variable globale pour stocker l'événement beforeinstallprompt
+  
+  // Écoute de l'événement beforeinstallprompt
+  window.addEventListener('beforeinstallprompt', (event) => {
+    // Empêche l'affichage par défaut de la boîte de dialogue d'installation
+    event.preventDefault();
+    // Stocke l'événement pour pouvoir l'utiliser ultérieurement
+    deferredPrompt = event;
+  
+    // Affiche un bouton ou une indication visuelle pour l'utilisateur pour l'installation
+    document.querySelector('#install').style.display = 'block';
+  
+    // Ajoute un gestionnaire d'événements au clic sur le bouton d'installation
+    document.querySelector('#install').addEventListener('click', (e) => {
+      // Affiche la boîte de dialogue d'installation
+      deferredPrompt.prompt();
+  
+      // Attend la fin de l'installation
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('PWA installée');
+          // Cache le bouton d'installation une fois que la PWA est installée
+          document.querySelector('#install').style.display = 'none';
+        }
+        deferredPrompt = null; // Réinitialise l'événement
+      });
+    });
+  });
+
 let data;
 
 $(document).ready(async () => {
